@@ -4,7 +4,7 @@
 
 [更新日志](CHANGELOG.md) | [安全政策](SECURITY.md)
 
-weread-omni 是微信读书的全能智能体技能和非官方 SDK。微信扫码即可用，支持 40 项读写操作，远超官方支持的 6 项只读技能。
+weread-omni 是微信读书的全能智能体技能和非官方 SDK。基于微信读书墨水屏的 API 开发，微信扫码即可用，支持 40 项读写操作，远超官方支持的 6 项只读技能。
 
 40 项操作只有一套实现，三个入口共用：`weread-omni` 命令行，每条命令都能输出 JSON；一套类型完整的 TypeScript SDK；还有仓库自带的 agent skill。
 
