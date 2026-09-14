@@ -52,7 +52,7 @@ weread-omni --account default shelf sync --json
 
 An alias must start with a lowercase letter or digit. The remaining characters may be lowercase letters, digits, `-`, or `_`, for a maximum length of 64. If a command omits `--account`, the only configured account is selected automatically. With multiple accounts, `WEREAD_ACCOUNT` takes precedence over the default saved by `weread-omni accounts use <alias>`. If neither selects an account, an interactive terminal lists every account and lets you choose by number or alias; non-interactive commands must pass `--account` or set a default.
 
-Credentials live under `~/.config/weread/accounts/<alias>/` by default. Directories use mode `0700`, and files use `0600`. Set `WEREAD_CONFIG_DIR` to move the configuration root. Every `WEREAD_*` variable read by the project is documented in [`.env.example`](https://github.com/teng-lin/weread-omni/blob/v0.1.1/.env.example).
+Credentials live under `~/.config/weread/accounts/<alias>/` by default. Directories use mode `0700`, and files use `0600`. Set `WEREAD_CONFIG_DIR` to move the configuration root. Every `WEREAD_*` variable read by the project is documented in [`.env.example`](https://github.com/teng-lin/weread-omni/blob/v0.1.2/.env.example).
 
 ### Install the agent skill
 

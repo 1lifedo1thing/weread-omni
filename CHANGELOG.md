@@ -9,6 +9,26 @@ CLI surface is **experimental** and may change in a minor release.
 
 ## [Unreleased]
 
+## [0.1.2]
+
+### Added
+
+- **Read single public-account articles by URL.** Given any WeChat article URL
+  (`https://mp.weixin.qq.com/s/...`), `weread-omni public-accounts read-article <url>`
+  and `WeReadClient.publicAccounts.readArticle({ url })` fetch and parse the
+  article body without requiring a subscription to the public account. The
+  pipeline reuses link validation, WeRead E-Ink requests, text extraction,
+  entitlement checks, and SQLite/blob library storage. `--refresh` refetches
+  from upstream and `--no-library` bypasses the cache. Output includes cache
+  provenance (`fromCache`, `cachedAt`), status (`readable`, `partial`,
+  `unavailable`), and completeness diagnostics.
+- **Client plugins can contribute CLI commands.** An installed `ClientPlugin`
+  can export an optional `cli(program, context)` hook to register subcommands
+  on the CLI program. Commands receive the selected account store and execution
+  context (`getStore`, `stdout`, `stderr`, `env`, `confirm`, `isTTY`, and
+  content `library`), allowing plugins to expose custom workflows under the
+  unified `weread-omni` binary.
+
 ## [0.1.1]
 
 ### Changed
@@ -156,6 +176,7 @@ First public release.
 - This is an unofficial client. It is not affiliated with, endorsed by, or
   supported by Tencent or WeRead. See the legal section of the README.
 
-[Unreleased]: https://github.com/teng-lin/weread-omni/compare/v0.1.1...HEAD
+[Unreleased]: https://github.com/teng-lin/weread-omni/compare/v0.1.2...HEAD
+[0.1.2]: https://github.com/teng-lin/weread-omni/compare/v0.1.1...v0.1.2
 [0.1.1]: https://github.com/teng-lin/weread-omni/compare/v0.1.0...v0.1.1
 [0.1.0]: https://github.com/teng-lin/weread-omni/releases/tag/v0.1.0

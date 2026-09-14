@@ -157,8 +157,13 @@ describe("packed artifact", () => {
 
     // Run every declared bin from the installed .bin directory.
     const binDir = join(installDir, "node_modules", ".bin");
+    const cleanEnv = { ...process.env };
+    delete cleanEnv.WEREAD_PLUGINS;
     for (const bin of binNames) {
-      const { stdout, stderr } = await execFileAsync(binPath(binDir, bin), ["--help"], shellOnWindows);
+      const { stdout, stderr } = await execFileAsync(binPath(binDir, bin), ["--help"], {
+        ...shellOnWindows,
+        env: cleanEnv,
+      });
       expect(stdout.length + stderr.length, `${bin} --help should print output`).toBeGreaterThan(0);
       expect(stdout).toContain("Usage:");
     }

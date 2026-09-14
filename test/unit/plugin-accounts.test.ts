@@ -14,6 +14,7 @@ import {
   type JsonValue,
   loadClientPlugins,
   pluginSpecifiers,
+  validateClientPlugin,
 } from "../../src/plugin.js";
 import { expectPosixMode } from "../support/posix.js";
 
@@ -125,6 +126,22 @@ describe("client plugins and account storage", () => {
           plugins: [{ ...plugin(), cli: {} } as unknown as ClientPlugin],
         }),
     ).toThrow("cli must be callable");
+  });
+
+  it("rejects invalid plugin descriptors and provider shapes", async () => {
+    expect(() => validateClientPlugin(null)).toThrow("descriptor");
+    expect(() => validateClientPlugin({ meta: { name: "p", version: "1.0", apiVersion: 999 }, clients: {} })).toThrow(
+      "unsupported client plugin API",
+    );
+    expect(() =>
+      validateClientPlugin({
+        meta: { name: "p", version: "1.0", apiVersion: 1 },
+        clients: { test: { login: async () => {} } },
+      }),
+    ).toThrow("must provide login() and open()");
+    await expect(loadClientPlugins(["/nonexistent/path/to/plugin.mjs"])).rejects.toThrow(
+      "could not load client plugin",
+    );
   });
 
   it("persists one provider per account with private file modes and reopens it", async () => {

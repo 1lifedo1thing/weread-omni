@@ -53,7 +53,7 @@ weread-omni --account default shelf sync --json
 
 账号别名的首字符必须是小写字母或数字，后面可以使用小写字母、数字、`-` 和 `_`，总长不超过 64 个字符。命令没有指定 `--account` 时，只有一个账号就直接使用它；有多个账号时，先读取 `WEREAD_ACCOUNT`，再读取 `weread-omni accounts use <alias>` 保存的默认账号。两者都没有设置时，交互式终端会列出所有账号，支持按编号或别名选择；非交互式命令必须传入 `--account` 或设置默认账号。
 
-登录信息默认保存在 `~/.config/weread/accounts/<alias>/`。目录权限为 `0700`，文件权限为 `0600`。设置 `WEREAD_CONFIG_DIR` 可以更改配置目录。项目读取的 `WEREAD_*` 变量都列在 [`.env.example`](https://github.com/teng-lin/weread-omni/blob/v0.1.1/.env.example) 中。
+登录信息默认保存在 `~/.config/weread/accounts/<alias>/`。目录权限为 `0700`，文件权限为 `0600`。设置 `WEREAD_CONFIG_DIR` 可以更改配置目录。项目读取的 `WEREAD_*` 变量都列在 [`.env.example`](https://github.com/teng-lin/weread-omni/blob/v0.1.2/.env.example) 中。
 
 ### 安装 agent skill
 

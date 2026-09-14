@@ -79,6 +79,23 @@ describe("personal book import guards", () => {
       readBookFile("book.epub", "/proc/self/cmdline", { WEREAD_MAX_UPLOAD_BYTES: "1" }),
     ).rejects.toMatchObject({ code: "too-large" });
   });
+
+  it("reads content when actual file size exceeds the initial stat size", async () => {
+    const root = mkdtempSync(join(tmpdir(), "weread-book-guard-"));
+    const path = join(root, "book.epub");
+    writeFileSync(path, "hello world 12345");
+    try {
+      fsHooks.stat = async () => ({ isFile: () => true, size: 4 }) as ReturnType<typeof statSync>;
+      await expect(readBookFile("book.epub", path, { WEREAD_MAX_UPLOAD_BYTES: "100" })).resolves.toEqual(
+        Buffer.from("hello world 12345"),
+      );
+      await expect(readBookFile("book.epub", path, { WEREAD_MAX_UPLOAD_BYTES: "10" })).rejects.toMatchObject({
+        code: "too-large",
+      });
+    } finally {
+      rmSync(root, { recursive: true, force: true });
+    }
+  });
 });
 
 describe("storage timeouts", () => {
